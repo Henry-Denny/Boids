@@ -6,10 +6,11 @@
 class Boid
 {
 public:
-    Boid();
+    Boid(sf::Vector2f l_pos);
     ~Boid();
 
 private:
+    sf::Vector2f m_pos;
     sf::Vector2f m_velocity;
     sf::Vector2f m_acceleration;
 };
