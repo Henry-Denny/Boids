@@ -2,7 +2,7 @@
 
 Game::Game(sf::Vector2u l_winSize, const std::string &l_title)
 {
-    Setup();
+    Setup(l_winSize, l_title);
 }
 
 Game::~Game()
@@ -10,9 +10,9 @@ Game::~Game()
     // Delete boids
 }
 
-void Game::Setup()
+void Game::Setup(sf::Vector2u l_winSize, const std::string &l_title)
 {
-    // Create window
+    m_window.create({l_winSize.x, l_winSize.y}, l_title);
     m_window.setFramerateLimit(60);
 }
 

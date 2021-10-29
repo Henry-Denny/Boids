@@ -12,7 +12,7 @@ public:
     Game(sf::Vector2u l_winSize, const std::string &l_title);
     ~Game();
 
-    void Setup();
+    void Setup(sf::Vector2u l_winSize, const std::string &l_title);
     void Reset();
 
     void HandleInput();
