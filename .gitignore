@@ -35,4 +35,4 @@
 .vscode/
 
 # Make file
-./bin/Makefile
+Makefile
