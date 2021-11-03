@@ -16,8 +16,10 @@ public:
     void DeleteBoids();
     void CreateBoid(sf::Vector2f l_pos);
 
+    const std::vector<Boid*>& GetFlock();
+
 private:
-    std::vector<Boid*> m_boids;
+    std::vector<Boid*> m_flock;
 
 
 };

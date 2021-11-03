@@ -3,7 +3,7 @@
 Boid::Boid(sf::Vector2f l_pos)
     : m_mass{1}, m_pos{l_pos}, m_velocity{0, 0}, m_acceleration{0, 0}
 {
-    m_velocity = sf::Vector2f(2 * (rand()/RAND_MAX) - 1, 2 * (rand()/RAND_MAX) - 1);
+    m_velocity = sf::Vector2f(2 * ( rand() / RAND_MAX ) - 1, 2 * ( rand() / RAND_MAX ) - 1);
     // Normalise velocity and multiply by speed
 }
 
@@ -41,4 +41,9 @@ sf::Vector2f Boid::CalculateSeparationForce(const std::vector<Boid*> l_flock)
 void Boid::ApplyForce(sf::Vector2f l_force)
 {
     m_acceleration += l_force / m_mass;
+}
+
+sf::Vector2f Boid::GetPos()
+{
+    return m_pos;
 }

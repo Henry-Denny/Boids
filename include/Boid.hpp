@@ -1,6 +1,7 @@
 #ifndef BOID_HPP
 #define BOID_HPP
 
+#include <random>
 #include <vector>
 
 #include <SFML/System/Vector2.hpp>
@@ -24,6 +25,8 @@ public:
 
     void ApplyForce(sf::Vector2f l_force);
 
+    sf::Vector2f GetPos();
+    double GetBearing();
 
 private:
     const float m_mass;

@@ -1,6 +1,9 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
+#include "Renderer.hpp"
+#include "BoidManager.hpp"
+
 #include <string>
 
 #include <SFML/Graphics.hpp>
@@ -24,7 +27,9 @@ public:
 
 private:
     bool m_done;
-    sf::RenderWindow m_window;
+
+    BoidManager m_boidManager;
+    Renderer m_renderer;
     sf::Clock m_clock;
     sf::Time m_elapsed;
 };
