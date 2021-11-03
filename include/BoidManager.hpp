@@ -15,6 +15,7 @@ public:
 
     void DeleteBoids();
     void CreateBoid(sf::Vector2f l_pos);
+    void CreateBoid(unsigned int l_winWidth, unsigned int l_winHeight);
 
     const std::vector<Boid*>& GetFlock();
 

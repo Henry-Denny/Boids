@@ -10,6 +10,7 @@ class Boid
 {
 public:
     Boid(sf::Vector2f l_pos);
+    Boid(unsigned int l_winWidth, unsigned int l_winHeight);
     ~Boid();
 
 

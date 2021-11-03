@@ -7,6 +7,13 @@ Boid::Boid(sf::Vector2f l_pos)
     // Normalise velocity and multiply by speed
 }
 
+Boid::Boid(unsigned int l_winWidth, unsigned int l_winHeight)
+    : m_mass{1}, m_velocity{0, 0}, m_acceleration{0, 0}
+{
+    m_velocity = sf::Vector2f(2 * ( rand() / RAND_MAX ) - 1, 2 * ( rand() / RAND_MAX ) - 1);
+    m_pos = sf::Vector2f(rand() % l_winWidth, rand() % l_winHeight);
+}
+
 Boid::~Boid()
 {
 

@@ -17,6 +17,12 @@ void BoidManager::CreateBoid(sf::Vector2f l_pos)
     m_flock.push_back(boid);
 }
 
+void BoidManager::CreateBoid(unsigned int l_winWidth, unsigned int l_winHeight)
+{
+    Boid *boid = new Boid(l_winWidth, l_winHeight);
+    m_flock.push_back(boid);
+}
+
 void BoidManager::DeleteBoids()
 {
     // Deallocate memory

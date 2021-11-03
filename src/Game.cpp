@@ -1,6 +1,6 @@
 #include "Game.hpp"
 
-Game::Game(sf::Vector2u l_winSize, const std::string &l_title) : m_boidManager{}, m_renderer{l_winSize, l_title, &m_boidManager}
+Game::Game(sf::Vector2u l_winSize, const std::string &l_title) : m_boidManager{}, m_renderer{l_winSize, l_title, &m_boidManager}, m_done{ false }
 {
     Setup(l_winSize, l_title);
     Reset();
@@ -20,7 +20,11 @@ void Game::Reset()
     // Delete boids
     // Reset to default settings
     m_boidManager.DeleteBoids();
-    m_boidManager.CreateBoid({0, 0});
+    sf::Vector2u winSize = m_renderer.GetWindow()->getSize();
+    for (int i = 0; i < 50; ++i)
+    {
+        m_boidManager.CreateBoid(winSize.x, winSize.y);
+    }
 }
 
 void Game::HandleInput()
