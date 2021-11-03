@@ -34,6 +34,18 @@ void BoidManager::DeleteBoids()
     m_flock.clear();
 }
 
+void BoidManager::Step(double dt)
+{
+    for (auto &boid : m_flock)
+    {
+        boid->Flock(m_flock);
+    }
+    for (auto &boid : m_flock)
+    {
+        boid->Update();
+    }
+}
+
 const std::vector<Boid*>& BoidManager::GetFlock()
 {
     return m_flock;

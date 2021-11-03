@@ -43,6 +43,7 @@ void Game::Update()
 {
     double deltaTime = m_elapsed.asSeconds();
     // Get delta time, update boid positions
+    m_boidManager.Step(deltaTime);
 }
 
 void Game::DrawScene()
