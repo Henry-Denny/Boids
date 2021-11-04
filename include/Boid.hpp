@@ -6,6 +6,9 @@
 
 #include <SFML/System/Vector2.hpp>
 
+#include "Constants.hpp"
+#include "Vec.hpp"
+
 class Boid
 {
 public:
@@ -17,9 +20,9 @@ public:
     // Change the acceleration
     void Flock(const std::vector<Boid*> l_flock);
     // Apply the acceleration
-    void Update();
+    void Update(float l_dt);
 
-    sf::Vector2f CalculateSeekForce(sf::Vector2f l_target);
+    sf::Vector2f CalculateSeekForce(sf::Vector2f l_target, double l_strengthCoeff = 1.0f);
     sf::Vector2f CalculateAlignmentForce(const std::vector<Boid*> l_flock);
     sf::Vector2f CalculateCohesionForce(const std::vector<Boid*> l_flock);
     sf::Vector2f CalculateSeparationForce(const std::vector<Boid*> l_flock);

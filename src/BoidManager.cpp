@@ -42,7 +42,7 @@ void BoidManager::Step(double dt)
     }
     for (auto &boid : m_flock)
     {
-        boid->Update();
+        boid->Update(dt);
     }
 }
 
