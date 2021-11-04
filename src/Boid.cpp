@@ -1,18 +1,23 @@
 #include "Boid.hpp"
 
+const double PI = 3.141592653589793238463;
+
 Boid::Boid(sf::Vector2f l_pos)
     : m_mass{1}, m_pos{l_pos}, m_velocity{0, 0}, m_acceleration{0, 0}
 {
     m_velocity = sf::Vector2f(2 * ( rand() / RAND_MAX ) - 1, 2 * ( rand() / RAND_MAX ) - 1);
+    Vec::SetMagnitude(m_velocity, (rand() / (float)RAND_MAX) * constants::k_maxSpeed );
     // Normalise velocity and multiply by speed
+    m_colour = {rand() % 256, rand() % 256, rand() % 256};
 }
 
 Boid::Boid(unsigned int l_winWidth, unsigned int l_winHeight)
     : m_mass{1}, m_velocity{0, 0}, m_acceleration{0, 0}
 {
-    m_velocity = sf::Vector2f(2 * ( rand() / (float)RAND_MAX ) - 1, 2 * ( rand() / (float)RAND_MAX ) - 1);
+    m_velocity = {2 * ( rand() / (float)RAND_MAX ) - 1, 2 * ( rand() / (float)RAND_MAX ) - 1};
     Vec::SetMagnitude(m_velocity, (rand() / (float)RAND_MAX) * constants::k_maxSpeed );
-    m_pos = sf::Vector2f(rand() % l_winWidth, rand() % l_winHeight);
+    m_pos = {rand() % l_winWidth, rand() % l_winHeight};
+    m_colour = {rand() % 256, rand() % 256, rand() % 256};
 }
 
 Boid::~Boid()
@@ -75,4 +80,29 @@ void Boid::ApplyForce(sf::Vector2f l_force)
 sf::Vector2f Boid::GetPos()
 {
     return m_pos;
+}
+
+double Boid::GetBearing()
+{
+    if (m_velocity.x == 0.0f)
+    {
+        if (m_velocity.y == 0.0f)
+        {
+            return 0;
+        }
+        return (m_velocity.y > 0) ? 0 : 180;
+    }
+    if (m_velocity.x > 0)
+    {
+        return ((std::atan(m_velocity.y / m_velocity.x) / PI) * 180) + 90;
+    }
+    else
+    {
+        return ((std::atan(m_velocity.y / m_velocity.x) / PI) * 180) - 90;
+    }
+}
+
+sf::Color Boid::GetCol()
+{
+    return m_colour;
 }

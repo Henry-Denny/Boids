@@ -32,7 +32,8 @@ void Renderer::DrawBoids()
         boidShape.setPoint(0, origin + sf::Vector2f(0, -12));
         boidShape.setPoint(1, origin + sf::Vector2f(-6, 6));
         boidShape.setPoint(2, origin + sf::Vector2f(6, 6));
-        boidShape.setFillColor({rand() % 256, rand() % 256, rand() % 256});
+        boidShape.setFillColor(l_boid->GetCol());
+        boidShape.setRotation(l_boid->GetBearing());
         m_window.draw(boidShape);
     }
 }

@@ -3,8 +3,10 @@
 
 #include <random>
 #include <vector>
+#include <cmath>
 
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/Color.hpp>
 
 #include "Constants.hpp"
 #include "Vec.hpp"
@@ -31,6 +33,7 @@ public:
 
     sf::Vector2f GetPos();
     double GetBearing();
+    sf::Color GetCol();
 
 private:
     const float m_mass;
@@ -38,6 +41,8 @@ private:
     sf::Vector2f m_pos;
     sf::Vector2f m_velocity;
     sf::Vector2f m_acceleration;
+
+    sf::Color m_colour;
 };
 
 #endif
