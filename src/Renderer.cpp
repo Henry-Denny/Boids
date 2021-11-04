@@ -5,16 +5,22 @@ Renderer::Renderer(sf::Vector2u l_winSize, const std::string &l_title, BoidManag
 {
     m_window.create({l_winSize.x, l_winSize.y}, l_title);
     m_window.setFramerateLimit(l_framerateLimit);
+    m_font.loadFromFile("./res/otomanopee.ttf");
+    m_fpsText.setFont(m_font);
+    m_fpsText.setFillColor(sf::Color::White);
+    m_fpsText.setCharacterSize(50);
+    m_fpsText.setPosition({30, 30});
 }
 
 Renderer::~Renderer() {}
 
-void Renderer::DrawScene()
+void Renderer::DrawScene(float l_dt)
 {
     m_window.clear(m_bgColour);
 
     DrawBoids();
     DrawOverlay();
+    DrawUI(l_dt);
 
     m_window.display();
 }
@@ -41,6 +47,12 @@ void Renderer::DrawBoids()
 void Renderer::DrawOverlay()
 {
     // Draw overlay
+}
+
+void Renderer::DrawUI(float l_dt)
+{
+    m_fpsText.setString("FPS: " + std::to_string(int(1.0f / l_dt)));
+    m_window.draw(m_fpsText);
 }
 
 sf::RenderWindow* Renderer::GetWindow()

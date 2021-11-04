@@ -27,7 +27,7 @@ Boid::~Boid()
 
 void Boid::Flock(const std::vector<Boid*> l_flock)
 {
-    ApplyForce(CalculateAlignmentForce(l_flock) + CalculateCohesionForce(l_flock) + CalculateSeparationForce(l_flock));
+    ApplyForce(CalculateAlignmentForce(l_flock) + CalculateCohesionForce(l_flock) + CalculateSeparationForce(l_flock) + CalculateSeekForce({600, 600}, 0.2));
 }
 
 void Boid::Update(float l_dt)

@@ -21,7 +21,7 @@ void Game::Reset()
     // Reset to default settings
     m_boidManager.DeleteBoids();
     sf::Vector2u winSize = m_renderer.GetWindow()->getSize();
-    for (int i = 0; i < 50; ++i)
+    for (int i = 0; i < 500; ++i)
     {
         m_boidManager.CreateBoid(winSize.x, winSize.y);
     }
@@ -48,7 +48,7 @@ void Game::Update()
 
 void Game::DrawScene()
 {
-    m_renderer.DrawScene();
+    m_renderer.DrawScene(m_elapsed.asSeconds());
 }
 
 void Game::RestartClock()
