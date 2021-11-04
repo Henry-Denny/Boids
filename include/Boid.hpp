@@ -32,6 +32,7 @@ public:
     void ApplyForce(sf::Vector2f l_force);
 
     sf::Vector2f GetPos();
+    float GetSpeed();
     double GetBearing();
     sf::Color GetCol();
 

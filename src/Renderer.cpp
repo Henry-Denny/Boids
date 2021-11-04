@@ -38,7 +38,10 @@ void Renderer::DrawBoids()
         boidShape.setPoint(0, origin + sf::Vector2f(0, -12));
         boidShape.setPoint(1, origin + sf::Vector2f(-6, 6));
         boidShape.setPoint(2, origin + sf::Vector2f(6, 6));
-        boidShape.setFillColor(l_boid->GetCol());
+        // boidShape.setFillColor(l_boid->GetCol());
+        float speed = l_boid->GetSpeed();
+        int r = (speed / constants::k_maxSpeed) * 255;
+        boidShape.setFillColor({r, 255 - r, 0});
         boidShape.setRotation(l_boid->GetBearing());
         m_window.draw(boidShape);
     }

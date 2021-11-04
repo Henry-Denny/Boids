@@ -32,7 +32,8 @@ void Boid::Flock(const std::vector<Boid*> l_flock)
 
 void Boid::Update(float l_dt)
 {
-    m_velocity += m_acceleration;
+    m_velocity += l_dt * m_acceleration;
+    if (Vec::GetMagnitude(m_velocity) > constants::k_maxSpeed) { Vec::SetMagnitude(m_velocity, constants::k_maxSpeed); }
     m_acceleration = sf::Vector2f(0, 0);
     m_pos += l_dt * m_velocity;
 }
@@ -80,6 +81,11 @@ void Boid::ApplyForce(sf::Vector2f l_force)
 sf::Vector2f Boid::GetPos()
 {
     return m_pos;
+}
+
+float Boid::GetSpeed()
+{
+    return Vec::GetMagnitude(m_velocity);
 }
 
 double Boid::GetBearing()
