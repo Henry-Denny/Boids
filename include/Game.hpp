@@ -3,6 +3,7 @@
 
 #include "Renderer.hpp"
 #include "BoidManager.hpp"
+#include "Behaviours.hpp"
 
 #include <string>
 
@@ -15,7 +16,6 @@ public:
     Game(sf::Vector2u l_winSize, const std::string &l_title);
     ~Game();
 
-    void Setup(sf::Vector2u l_winSize, const std::string &l_title);
     void Reset();
 
     void HandleInput();
@@ -32,6 +32,7 @@ private:
     Renderer m_renderer;
     sf::Clock m_clock;
     sf::Time m_elapsed;
+    std::uint8_t m_behaviours;
 };
 
 #endif

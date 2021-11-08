@@ -41,7 +41,7 @@ void Renderer::DrawBoids()
         // boidShape.setFillColor(l_boid->GetCol());
         float speed = l_boid->GetSpeed();
         int r = (speed / constants::k_maxSpeed) * 255;
-        boidShape.setFillColor({r, 255 - r, 0});
+        boidShape.setFillColor({sf::Uint8(r), sf::Uint8(255 - r), 0});
         boidShape.setRotation(l_boid->GetBearing());
         m_window.draw(boidShape);
     }

@@ -34,11 +34,11 @@ void BoidManager::DeleteBoids()
     m_flock.clear();
 }
 
-void BoidManager::Step(double dt)
+void BoidManager::Step(double dt, std::uint8_t behaviourOptions)
 {
     for (auto &boid : m_flock)
     {
-        boid->Flock(m_flock);
+        boid->Flock(m_flock, behaviourOptions);
     }
     for (auto &boid : m_flock)
     {

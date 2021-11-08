@@ -10,6 +10,7 @@
 
 #include "Constants.hpp"
 #include "Vec.hpp"
+#include "Behaviours.hpp"
 
 class Boid
 {
@@ -20,7 +21,7 @@ public:
 
 
     // Change the acceleration
-    void Flock(const std::vector<Boid*> l_flock);
+    void Flock(const std::vector<Boid*> l_flock, std::uint8_t behaviourOptions = 0b11111111);
     // Apply the acceleration
     void Update(float l_dt);
 

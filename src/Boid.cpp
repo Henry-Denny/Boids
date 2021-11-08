@@ -8,7 +8,7 @@ Boid::Boid(sf::Vector2f l_pos)
     m_velocity = sf::Vector2f(2 * ( rand() / RAND_MAX ) - 1, 2 * ( rand() / RAND_MAX ) - 1);
     Vec::SetMagnitude(m_velocity, (rand() / (float)RAND_MAX) * constants::k_maxSpeed );
     // Normalise velocity and multiply by speed
-    m_colour = {rand() % 256, rand() % 256, rand() % 256};
+    m_colour = {sf::Uint8(rand() % 256), sf::Uint8(rand() % 256), sf::Uint8(rand() % 256)};
 }
 
 Boid::Boid(unsigned int l_winWidth, unsigned int l_winHeight)
@@ -16,8 +16,8 @@ Boid::Boid(unsigned int l_winWidth, unsigned int l_winHeight)
 {
     m_velocity = {2 * ( rand() / (float)RAND_MAX ) - 1, 2 * ( rand() / (float)RAND_MAX ) - 1};
     Vec::SetMagnitude(m_velocity, (rand() / (float)RAND_MAX) * constants::k_maxSpeed );
-    m_pos = {rand() % l_winWidth, rand() % l_winHeight};
-    m_colour = {rand() % 256, rand() % 256, rand() % 256};
+    m_pos = {float(rand() % l_winWidth), float(rand() % l_winHeight)};
+    m_colour = {sf::Uint8(rand() % 256), sf::Uint8(rand() % 256), sf::Uint8(rand() % 256)};
 }
 
 Boid::~Boid()
@@ -25,9 +25,30 @@ Boid::~Boid()
 
 }
 
-void Boid::Flock(const std::vector<Boid*> l_flock)
+void Boid::Flock(const std::vector<Boid*> l_flock, std::uint8_t behaviourOptions)
 {
-    ApplyForce(CalculateAlignmentForce(l_flock) + CalculateCohesionForce(l_flock) + CalculateSeparationForce(l_flock) + CalculateSeekForce({600, 600}, 0.2));
+    sf::Vector2f force {0, 0};
+    if (behaviourOptions & (std::uint8_t)Behaviour::Alignment)
+    {
+        force += CalculateAlignmentForce(l_flock);
+    }
+    if (behaviourOptions & (std::uint8_t)Behaviour::Cohesion)
+    {
+        force += CalculateCohesionForce(l_flock);
+    }
+    if (behaviourOptions & (std::uint8_t)Behaviour::Separation)
+    {
+        force += CalculateSeparationForce(l_flock);
+    }
+    if (behaviourOptions & (std::uint8_t)Behaviour::Centralisation)
+    {
+        force += CalculateSeekForce({600, 600}, 0.2);
+    }
+    if(behaviourOptions & (std::uint8_t)Behaviour::Orbit)
+    {
+        // TODO
+    }
+    ApplyForce(force);
 }
 
 void Boid::Update(float l_dt)

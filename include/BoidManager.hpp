@@ -16,7 +16,7 @@ public:
     void DeleteBoids();
     void CreateBoid(sf::Vector2f l_pos);
     void CreateBoid(unsigned int l_winWidth, unsigned int l_winHeight);
-    void Step(double dt);
+    void Step(double dt, std::uint8_t behaviourOptions = 0b11111111);
 
     const std::vector<Boid*>& GetFlock();
 

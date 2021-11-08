@@ -1,18 +1,13 @@
 #include "Game.hpp"
 
-Game::Game(sf::Vector2u l_winSize, const std::string &l_title) : m_boidManager{}, m_renderer{l_winSize, l_title, &m_boidManager}, m_done{ false }
+Game::Game(sf::Vector2u l_winSize, const std::string &l_title) : m_boidManager{}, m_renderer{l_winSize, l_title, &m_boidManager}, m_done{ false }, m_behaviours{ 0 }
 {
-    Setup(l_winSize, l_title);
     Reset();
 }
 
 Game::~Game()
 {
     // Delete boids
-}
-
-void Game::Setup(sf::Vector2u l_winSize, const std::string &l_title)
-{
 }
 
 void Game::Reset()
@@ -25,6 +20,7 @@ void Game::Reset()
     {
         m_boidManager.CreateBoid(winSize.x, winSize.y);
     }
+    m_behaviours = ((std::uint8_t)Behaviour::Cohesion | (std::uint8_t)Behaviour::Centralisation);
 }
 
 void Game::HandleInput()
@@ -43,7 +39,7 @@ void Game::Update()
 {
     double deltaTime = m_elapsed.asSeconds();
     // Get delta time, update boid positions
-    m_boidManager.Step(deltaTime);
+    m_boidManager.Step(deltaTime, m_behaviours);
 }
 
 void Game::DrawScene()
