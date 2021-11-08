@@ -46,7 +46,7 @@ void Boid::Flock(const std::vector<Boid*> l_flock, std::uint8_t behaviourOptions
     }
     if(behaviourOptions & (std::uint8_t)Behaviour::Orbit)
     {
-        // TODO
+        force += CalculateOrbitalForce({600, 600});
     }
     ApplyForce(force);
 }
@@ -92,6 +92,19 @@ sf::Vector2f Boid::CalculateCohesionForce(const std::vector<Boid*> l_flock)
 sf::Vector2f Boid::CalculateSeparationForce(const std::vector<Boid*> l_flock)
 {
     // Separation
+}
+
+sf::Vector2f Boid::CalculateOrbitalForce(sf::Vector2f l_center)
+{
+    sf::Vector2f normal = l_center - m_pos;
+    sf::Vector2f tangent = {-normal.y, normal.x};
+
+    sf::Vector2f force = (normal + tangent) * (float)constants::k_orbitalCoeff;
+    if (Vec::GetMagnitude(force) > (float)constants::k_maxForce)
+    {
+        Vec::SetMagnitude(force, constants::k_maxForce);
+    }
+    return force;
 }
 
 void Boid::ApplyForce(sf::Vector2f l_force)

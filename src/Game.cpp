@@ -20,7 +20,15 @@ void Game::Reset()
     {
         m_boidManager.CreateBoid(winSize.x, winSize.y);
     }
-    m_behaviours = ((std::uint8_t)Behaviour::Cohesion | (std::uint8_t)Behaviour::Centralisation);
+
+    // Configurable behaviours (omit the behaviours you do not want)
+    m_behaviours = (
+        // (std::uint8_t)Behaviour::Alignment |
+        // (std::uint8_t)Behaviour::Cohesion |
+        // (std::uint8_t)Behaviour::Separation |
+        // (std::uint8_t)Behaviour::Centralisation |
+        (std::uint8_t)Behaviour::Orbit
+    );
 }
 
 void Game::HandleInput()

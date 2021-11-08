@@ -29,6 +29,7 @@ public:
     sf::Vector2f CalculateAlignmentForce(const std::vector<Boid*> l_flock);
     sf::Vector2f CalculateCohesionForce(const std::vector<Boid*> l_flock);
     sf::Vector2f CalculateSeparationForce(const std::vector<Boid*> l_flock);
+    sf::Vector2f CalculateOrbitalForce(sf::Vector2f l_center = {0, 0});
 
     void ApplyForce(sf::Vector2f l_force);
 
