@@ -24,9 +24,9 @@ void Game::Reset()
     // Configurable behaviours (omit the behaviours you do not want)
     m_behaviours = (
         // (std::uint8_t)Behaviour::Alignment |
-        // (std::uint8_t)Behaviour::Cohesion |
+        (std::uint8_t)Behaviour::Cohesion |
         // (std::uint8_t)Behaviour::Separation |
-        // (std::uint8_t)Behaviour::Centralisation |
+        (std::uint8_t)Behaviour::Centralisation |
         (std::uint8_t)Behaviour::Orbit
     );
 }
@@ -39,6 +39,18 @@ void Game::HandleInput()
         if (ev.type == sf::Event::Closed)
         {
             m_done = true;
+        }
+        if (ev.type == sf::Event::KeyPressed)
+        {
+            switch (ev.key.code)
+            {
+            case (sf::Keyboard::Space):
+                m_behaviours ^= (std::uint8_t)Behaviour::Orbit;
+                break;
+            
+            default:
+                break;
+            }
         }
     }
 }
