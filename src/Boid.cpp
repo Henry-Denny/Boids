@@ -54,7 +54,7 @@ void Boid::Flock(const std::vector<Boid*> l_flock, std::uint8_t behaviourOptions
 void Boid::Update(float l_dt)
 {
     m_velocity += l_dt * m_acceleration;
-    if (Vec::GetMagnitude(m_velocity) > constants::k_maxSpeed) { Vec::SetMagnitude(m_velocity, constants::k_maxSpeed); }
+    Vec::Restrict(m_velocity, constants::k_maxSpeed);
     m_acceleration = sf::Vector2f(0, 0);
     m_pos += l_dt * m_velocity;
 }
@@ -62,10 +62,7 @@ void Boid::Update(float l_dt)
 sf::Vector2f Boid::CalculateSeekForce(sf::Vector2f l_target, double l_strengthCoeff)
 {
     sf::Vector2f force = (l_target - m_pos) * (float)l_strengthCoeff;
-    if (Vec::GetMagnitude(force) > (float)constants::k_maxForce)
-    {
-        Vec::SetMagnitude(force, constants::k_maxForce);
-    }
+    Vec::Restrict(force, (float)constants::k_maxForce);
     return force;
 }
 
@@ -113,10 +110,7 @@ sf::Vector2f Boid::CalculateOrbitalForce(sf::Vector2f l_center, bool l_anticlock
     sf::Vector2f tangent = sf::Vector2f(-normal.y, normal.x) * ((l_anticlockwise) ? 1.0f : -1.0f);
 
     sf::Vector2f force = (normal + tangent) * (float)constants::k_orbitalCoeff;
-    if (Vec::GetMagnitude(force) > (float)constants::k_maxForce)
-    {
-        Vec::SetMagnitude(force, constants::k_maxForce);
-    }
+    Vec::Restrict(force, (float)constants::k_maxForce);
     return force;
 }
 
