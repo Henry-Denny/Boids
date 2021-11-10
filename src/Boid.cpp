@@ -42,7 +42,7 @@ void Boid::Flock(const std::vector<Boid*> l_flock, std::uint8_t behaviourOptions
     }
     if (behaviourOptions & (std::uint8_t)Behaviour::Centralisation)
     {
-        force += CalculateSeekForce({600, 600}, 0.2);
+        force += CalculateSeekForce({600, 600}, 15);
     }
     if(behaviourOptions & (std::uint8_t)Behaviour::Orbit)
     {
@@ -69,11 +69,24 @@ sf::Vector2f Boid::CalculateSeekForce(sf::Vector2f l_target, double l_strengthCo
 sf::Vector2f Boid::CalculateAlignmentForce(const std::vector<Boid*> l_flock)
 {
     // Alignment
+    if (l_flock.size() < 2) { return {0, 0}; }
+    Boid * const curr = this;
+    sf::Vector2f avgVel {0, 0};
+    for (const auto &boid : l_flock)
+    {
+        if (curr == boid) { continue; }
+        avgVel += boid->GetPos();
+    }
+    avgVel /= (float)l_flock.size();
+
+    sf::Vector2f force = (avgVel - m_velocity) * (float)constants::k_alignmentCoeff;
+    Vec::Restrict(force, (float)constants::k_maxForce);
+    return force;
 }
 
 sf::Vector2f Boid::CalculateCohesionForce(const std::vector<Boid*> l_flock)
 {
-    // Cast this to const pointer
+    // Cohesion
     if (l_flock.size() < 2) { return {0, 0}; }
     Boid * const curr = this;
     sf::Vector2f avgPos {0, 0};
