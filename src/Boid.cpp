@@ -92,6 +92,25 @@ sf::Vector2f Boid::CalculateCohesionForce(const std::vector<Boid*> l_flock)
 sf::Vector2f Boid::CalculateSeparationForce(const std::vector<Boid*> l_flock)
 {
     // Separation
+    if (l_flock.size() < 2) { return {0, 0}; }
+    Boid * const curr = this;
+    sf::Vector2f force {0, 0};
+    for (const auto &boid : l_flock)
+    {
+        if (curr == boid) { continue; }
+        sf::Vector2f separationForce = m_pos - boid->GetPos();
+        float magnitude = Vec::GetMagnitude(separationForce);
+        if (magnitude > 40.0f) { continue; }
+        Vec::SetMagnitude(separationForce, (float)constants::k_avoidanceCoeff / magnitude);
+        force += separationForce;
+    }
+    /*
+    if (Vec::GetMagnitude(force) > (float)constants::k_maxForce)
+    {
+        Vec::SetMagnitude(force, constants::k_maxForce);
+    }
+    */
+    return force;
 }
 
 sf::Vector2f Boid::CalculateOrbitalForce(sf::Vector2f l_center)
