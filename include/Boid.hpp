@@ -21,7 +21,7 @@ public:
 
 
     // Change the acceleration
-    void Flock(const std::vector<Boid*> l_flock, std::uint8_t behaviourOptions = 0b11111111);
+    void Flock(const std::vector<Boid*> l_flock, std::uint8_t behaviourOptions = 0b11111111, bool l_anticlockwiseOrbit = true);
     // Apply the acceleration
     void Update(float l_dt);
 
@@ -29,7 +29,7 @@ public:
     sf::Vector2f CalculateAlignmentForce(const std::vector<Boid*> l_flock);
     sf::Vector2f CalculateCohesionForce(const std::vector<Boid*> l_flock);
     sf::Vector2f CalculateSeparationForce(const std::vector<Boid*> l_flock);
-    sf::Vector2f CalculateOrbitalForce(sf::Vector2f l_center = {0, 0});
+    sf::Vector2f CalculateOrbitalForce(sf::Vector2f l_center = {0, 0}, bool l_anticlockwise = true);
 
     void ApplyForce(sf::Vector2f l_force);
 

@@ -1,6 +1,6 @@
 #include "BoidManager.hpp"
 
-BoidManager::BoidManager()
+BoidManager::BoidManager() : m_anticlockwiseOrbit{true}
 {
 
 }
@@ -38,12 +38,17 @@ void BoidManager::Step(double dt, std::uint8_t behaviourOptions)
 {
     for (auto &boid : m_flock)
     {
-        boid->Flock(m_flock, behaviourOptions);
+        boid->Flock(m_flock, behaviourOptions, m_anticlockwiseOrbit);
     }
     for (auto &boid : m_flock)
     {
         boid->Update(dt);
     }
+}
+
+void BoidManager:: ToggleOrbitalDirection()
+{
+    m_anticlockwiseOrbit = !m_anticlockwiseOrbit;
 }
 
 const std::vector<Boid*>& BoidManager::GetFlock()

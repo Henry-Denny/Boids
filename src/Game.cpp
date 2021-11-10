@@ -47,24 +47,35 @@ void Game::HandleInput()
             {
                 case (sf::Keyboard::Num1):
                     m_behaviours ^= (std::uint8_t)Behaviour::Alignment;
+                    m_renderer.UpdateBehaviourText(m_behaviours);
                     break;
                 case (sf::Keyboard::Num2):
                     m_behaviours ^= (std::uint8_t)Behaviour::Cohesion;
+                    m_renderer.UpdateBehaviourText(m_behaviours);
                     break;
                 case (sf::Keyboard::Num3):
                     m_behaviours ^= (std::uint8_t)Behaviour::Separation;
+                    m_renderer.UpdateBehaviourText(m_behaviours);
                     break;
                 case (sf::Keyboard::Num4):
                     m_behaviours ^= (std::uint8_t)Behaviour::Centralisation;
+                    m_renderer.UpdateBehaviourText(m_behaviours);
                     break;
                 case (sf::Keyboard::Num5):
                     m_behaviours ^= (std::uint8_t)Behaviour::Orbit;
+                    m_renderer.UpdateBehaviourText(m_behaviours);
                     break;
+
+                case (sf::Keyboard::Space):
+                {
+                    m_boidManager.ToggleOrbitalDirection();
+                    break;
+                }
             
                 default:
                     break;
-            }
-            m_renderer.UpdateBehaviourText(m_behaviours);
+
+            } 
         }
     }
 }
