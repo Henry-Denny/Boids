@@ -1,8 +1,10 @@
 #include "Game.hpp"
+#include "Constants.hpp"
 
 int main()
 {
-    Game game({1200, 1200}, "Boids");
+    using namespace constants;
+    Game game({k_windowSize[0], k_windowSize[1]}, "Boids");
     while (!game.IsDone())
     {
         game.HandleInput();

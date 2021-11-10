@@ -10,6 +10,19 @@ Renderer::Renderer(sf::Vector2u l_winSize, const std::string &l_title, BoidManag
     m_fpsText.setFillColor(sf::Color::White);
     m_fpsText.setCharacterSize(50);
     m_fpsText.setPosition({30, 30});
+
+    for (int i = 0; i < m_behavioursText.size(); ++i)
+    {
+        m_behavioursText[i].setFont(m_font);
+        m_behavioursText[i].setFillColor(sf::Color::White);
+        m_behavioursText[i].setCharacterSize(20);
+        m_behavioursText[i].setPosition(sf::Vector2f(constants::k_windowSize[0] - 200, 30) + sf::Vector2f(0, i * 40));
+    }
+    m_behavioursText[0].setString("1: Alignment");
+    m_behavioursText[1].setString("2: Cohesion");
+    m_behavioursText[2].setString("3: Avoidance");
+    m_behavioursText[3].setString("4: Centralisation");
+    m_behavioursText[4].setString("5: Orbit");
 }
 
 Renderer::~Renderer() {}
@@ -23,6 +36,34 @@ void Renderer::DrawScene(float l_dt)
     DrawUI(l_dt);
 
     m_window.display();
+}
+
+void Renderer::UpdateBehaviourText(uint8_t l_behaviours)
+{
+    for (int i = 0; i < m_behavioursText.size(); ++i)
+    {
+        m_behavioursText[i].setFillColor(sf::Color(70, 70, 70));
+    }
+    if (l_behaviours & (std::uint8_t)Behaviour::Alignment)
+    {
+        m_behavioursText[0].setFillColor(sf::Color::White);
+    }
+    if (l_behaviours & (std::uint8_t)Behaviour::Cohesion)
+    {
+        m_behavioursText[1].setFillColor(sf::Color::White);
+    }
+    if (l_behaviours & (std::uint8_t)Behaviour::Separation)
+    {
+        m_behavioursText[2].setFillColor(sf::Color::White);
+    }
+    if (l_behaviours & (std::uint8_t)Behaviour::Centralisation)
+    {
+        m_behavioursText[3].setFillColor(sf::Color::White);
+    }
+    if (l_behaviours & (std::uint8_t)Behaviour::Orbit)
+    {
+        m_behavioursText[4].setFillColor(sf::Color::White);
+    }
 }
 
 void Renderer::DrawBoids()
@@ -56,6 +97,11 @@ void Renderer::DrawUI(float l_dt)
 {
     m_fpsText.setString("FPS: " + std::to_string(int(1.0f / l_dt)));
     m_window.draw(m_fpsText);
+
+    for (const sf::Text &text : m_behavioursText)
+    {
+        m_window.draw(text);
+    }
 }
 
 sf::RenderWindow* Renderer::GetWindow()

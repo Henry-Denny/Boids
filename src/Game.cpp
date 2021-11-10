@@ -29,6 +29,7 @@ void Game::Reset()
         (std::uint8_t)Behaviour::Centralisation |
         (std::uint8_t)Behaviour::Orbit
     );
+    m_renderer.UpdateBehaviourText(m_behaviours);
 }
 
 void Game::HandleInput()
@@ -44,13 +45,26 @@ void Game::HandleInput()
         {
             switch (ev.key.code)
             {
-            case (sf::Keyboard::Space):
-                m_behaviours ^= (std::uint8_t)Behaviour::Orbit;
-                break;
+                case (sf::Keyboard::Num1):
+                    m_behaviours ^= (std::uint8_t)Behaviour::Alignment;
+                    break;
+                case (sf::Keyboard::Num2):
+                    m_behaviours ^= (std::uint8_t)Behaviour::Cohesion;
+                    break;
+                case (sf::Keyboard::Num3):
+                    m_behaviours ^= (std::uint8_t)Behaviour::Separation;
+                    break;
+                case (sf::Keyboard::Num4):
+                    m_behaviours ^= (std::uint8_t)Behaviour::Centralisation;
+                    break;
+                case (sf::Keyboard::Num5):
+                    m_behaviours ^= (std::uint8_t)Behaviour::Orbit;
+                    break;
             
-            default:
-                break;
+                default:
+                    break;
             }
+            m_renderer.UpdateBehaviourText(m_behaviours);
         }
     }
 }

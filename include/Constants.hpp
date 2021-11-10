@@ -3,6 +3,8 @@
 
 namespace constants
 {
+    const unsigned int k_windowSize[] {1200, 1200};
+
     const double k_alignmentCoeff { 0.5f };
     const double k_cohesionCoeff { 10.0f };
     const double k_avoidanceCoeff { 2000.0f };
