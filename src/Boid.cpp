@@ -76,13 +76,16 @@ sf::Vector2f Boid::CalculateAlignmentForce(const std::vector<Boid*> l_flock)
     if (l_flock.size() < 2) { return {0, 0}; }
     Boid * const curr = this;
     sf::Vector2f avgVel {0, 0};
+    bool foundBoid = false;
     for (const auto &boid : l_flock)
     {
         if (curr == boid) { continue; }
         if (Vec::Distance(m_pos, boid->GetPos()) > constants::k_visionRadius) { continue; }
-        if (std::abs(GetBearing() - boid->GetBearing()) > constants::k_visionAngle)
+        if (std::abs(GetBearing() - boid->GetBearing()) > constants::k_visionAngle) { continue; }
+        foundBoid = true;
         avgVel += boid->GetPos();
     }
+    if (!foundBoid) { return {0, 0}; }
     avgVel /= (float)l_flock.size();
 
     sf::Vector2f force = (avgVel - m_velocity) * (float)constants::k_alignmentCoeff;
@@ -96,13 +99,16 @@ sf::Vector2f Boid::CalculateCohesionForce(const std::vector<Boid*> l_flock)
     if (l_flock.size() < 2) { return {0, 0}; }
     Boid * const curr = this;
     sf::Vector2f avgPos {0, 0};
+    bool foundBoid = false;
     for (const auto &boid : l_flock)
     {
         if (curr == boid) { continue; }
         if (Vec::Distance(m_pos, boid->GetPos()) > constants::k_visionRadius) { continue; }
-        if (std::abs(GetBearing() - boid->GetBearing()) > constants::k_visionAngle)
+        if (std::abs(GetBearing() - boid->GetBearing()) > constants::k_visionAngle) { continue; }
+        foundBoid = true;
         avgPos += boid->GetPos();
     }
+    if (!foundBoid) { return {0, 0}; }
     avgPos /= (float)l_flock.size();
     return CalculateSeekForce(avgPos, constants::k_cohesionCoeff);
 }

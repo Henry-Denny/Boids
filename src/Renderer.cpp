@@ -95,7 +95,23 @@ void Renderer::DrawBoids()
 
 void Renderer::DrawOverlay()
 {
-    // Draw overlay
+    const auto &l_flock = m_boidMgr->GetFlock();
+    if (l_flock.empty()) { return; }
+    for (const auto &l_boid : l_flock)
+    {
+        for (const auto &other : l_flock)
+        {
+            if (other == l_boid) { continue; }
+            if (Vec::Distance(l_boid->GetPos(), other->GetPos()) > constants::k_visionRadius) { continue; }
+            if (std::abs(l_boid->GetBearing() - other->GetBearing()) > constants::k_visionAngle) { continue; }
+            sf::Vertex line[] =
+            {
+                sf::Vertex(l_boid->GetPos(), sf::Color::White),
+                sf::Vertex(other->GetPos(), sf::Color::Black)
+            };
+            m_window.draw(line, 2, sf::Lines);
+        }
+    }
 }
 
 void Renderer::DrawUI(float l_dt)
