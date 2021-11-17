@@ -42,11 +42,11 @@ void Boid::Flock(const std::vector<Boid*> l_flock, sf::Vector2f l_centralisation
     }
     if (behaviourOptions & (std::uint8_t)Behaviour::Centralisation)
     {
-        force += CalculateSeekForce({600, 600}, 15);
+        force += CalculateSeekForce(l_centralisationNode, 15);
     }
     if (behaviourOptions & (std::uint8_t)Behaviour::Orbit)
     {
-        force += CalculateOrbitalForce(l_centralisationNode, l_anticlockwiseOrbit);
+        force += CalculateOrbitalForce(l_flock, l_anticlockwiseOrbit);
     }
     if (behaviourOptions & (std::uint8_t)Behaviour::Resistance)
     {
@@ -121,9 +121,18 @@ sf::Vector2f Boid::CalculateSeparationForce(const std::vector<Boid*> l_flock)
     return force;
 }
 
-sf::Vector2f Boid::CalculateOrbitalForce(sf::Vector2f l_center, bool l_anticlockwise)
+sf::Vector2f Boid::CalculateOrbitalForce(const std::vector<Boid*> l_flock, bool l_anticlockwise)
 {
-    sf::Vector2f normal = l_center - m_pos;
+    if (l_flock.size() < 2) { return {0, 0}; }
+    Boid * const curr = this;
+    sf::Vector2f avgPos {0, 0};
+    for (const auto &boid : l_flock)
+    {
+        if (curr == boid) { continue; }
+        avgPos += boid->GetPos();
+    }
+    avgPos /= (float)l_flock.size();
+    sf::Vector2f normal = avgPos - m_pos;
     sf::Vector2f tangent = sf::Vector2f(-normal.y, normal.x) * ((l_anticlockwise) ? 1.0f : -1.0f);
 
     sf::Vector2f force = (normal + tangent) * (float)constants::k_orbitalCoeff;
