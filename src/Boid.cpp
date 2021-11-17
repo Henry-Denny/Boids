@@ -44,9 +44,13 @@ void Boid::Flock(const std::vector<Boid*> l_flock, std::uint8_t behaviourOptions
     {
         force += CalculateSeekForce({600, 600}, 15);
     }
-    if(behaviourOptions & (std::uint8_t)Behaviour::Orbit)
+    if (behaviourOptions & (std::uint8_t)Behaviour::Orbit)
     {
         force += CalculateOrbitalForce({600, 600}, l_anticlockwiseOrbit);
+    }
+    if (behaviourOptions & (std::uint8_t)Behaviour::Resistance)
+    {
+        force += CalculateResistanceForce();
     }
     ApplyForce(force);
 }
@@ -124,6 +128,13 @@ sf::Vector2f Boid::CalculateOrbitalForce(sf::Vector2f l_center, bool l_anticlock
 
     sf::Vector2f force = (normal + tangent) * (float)constants::k_orbitalCoeff;
     Vec::Restrict(force, (float)constants::k_maxForce);
+    return force;
+}
+
+sf::Vector2f Boid::CalculateResistanceForce()
+{
+    sf::Vector2f force = m_velocity * -0.01f * (float)constants::k_resistanceCoeff;
+    Vec::Restrict(force, Vec::GetMagnitude(m_velocity));
     return force;
 }
 

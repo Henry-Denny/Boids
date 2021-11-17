@@ -32,7 +32,7 @@ private:
     sf::Color m_bgColour;
     sf::Font m_font;
     sf::Text m_fpsText;
-    std::array<sf::Text, 5> m_behavioursText;
+    std::array<sf::Text, 6> m_behavioursText;
 };
 
 #endif

@@ -27,7 +27,8 @@ void Game::Reset()
         (std::uint8_t)Behaviour::Cohesion |
         // (std::uint8_t)Behaviour::Separation |
         (std::uint8_t)Behaviour::Centralisation |
-        (std::uint8_t)Behaviour::Orbit
+        (std::uint8_t)Behaviour::Orbit |
+        (std::uint8_t)Behaviour::Resistance
     );
     m_renderer.UpdateBehaviourText(m_behaviours);
 }
@@ -63,6 +64,10 @@ void Game::HandleInput()
                     break;
                 case (sf::Keyboard::Num5):
                     m_behaviours ^= (std::uint8_t)Behaviour::Orbit;
+                    m_renderer.UpdateBehaviourText(m_behaviours);
+                    break;
+                case (sf::Keyboard::Num6):
+                    m_behaviours ^= (std::uint8_t)Behaviour::Resistance;
                     m_renderer.UpdateBehaviourText(m_behaviours);
                     break;
 

@@ -23,6 +23,7 @@ Renderer::Renderer(sf::Vector2u l_winSize, const std::string &l_title, BoidManag
     m_behavioursText[2].setString("3: Avoidance");
     m_behavioursText[3].setString("4: Centralisation");
     m_behavioursText[4].setString("5: Orbit");
+    m_behavioursText[5].setString("6: Resistance (air)");
 }
 
 Renderer::~Renderer() {}
@@ -63,6 +64,10 @@ void Renderer::UpdateBehaviourText(uint8_t l_behaviours)
     if (l_behaviours & (std::uint8_t)Behaviour::Orbit)
     {
         m_behavioursText[4].setFillColor(sf::Color::White);
+    }
+    if (l_behaviours & (std::uint8_t)Behaviour::Resistance)
+    {
+        m_behavioursText[5].setFillColor(sf::Color::White);
     }
 }
 
