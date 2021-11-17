@@ -11,6 +11,7 @@ namespace Vec
     void Normalise(sf::Vector2f &l_vec);
     void SetMagnitude(sf::Vector2f &l_vec, float l_maxMag);
     void Restrict(sf::Vector2f &l_vec, float l_mag);
+    float Distance(sf::Vector2f A, sf::Vector2f B);
     float InvSqrt(float n);
 };
 

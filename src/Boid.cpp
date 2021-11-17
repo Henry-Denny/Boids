@@ -79,6 +79,8 @@ sf::Vector2f Boid::CalculateAlignmentForce(const std::vector<Boid*> l_flock)
     for (const auto &boid : l_flock)
     {
         if (curr == boid) { continue; }
+        if (Vec::Distance(m_pos, boid->GetPos()) > constants::k_visionRadius) { continue; }
+        if (std::abs(GetBearing() - boid->GetBearing()) > constants::k_visionAngle)
         avgVel += boid->GetPos();
     }
     avgVel /= (float)l_flock.size();
@@ -97,6 +99,8 @@ sf::Vector2f Boid::CalculateCohesionForce(const std::vector<Boid*> l_flock)
     for (const auto &boid : l_flock)
     {
         if (curr == boid) { continue; }
+        if (Vec::Distance(m_pos, boid->GetPos()) > constants::k_visionRadius) { continue; }
+        if (std::abs(GetBearing() - boid->GetBearing()) > constants::k_visionAngle)
         avgPos += boid->GetPos();
     }
     avgPos /= (float)l_flock.size();
@@ -114,7 +118,7 @@ sf::Vector2f Boid::CalculateSeparationForce(const std::vector<Boid*> l_flock)
         if (curr == boid) { continue; }
         sf::Vector2f separationForce = m_pos - boid->GetPos();
         float magnitude = Vec::GetMagnitude(separationForce);
-        if (magnitude > 40.0f) { continue; }
+        if (Vec::Distance(m_pos, boid->GetPos()) > constants::k_visionRadius) { continue; }
         Vec::SetMagnitude(separationForce, (float)constants::k_avoidanceCoeff / magnitude);
         force += separationForce;
     }

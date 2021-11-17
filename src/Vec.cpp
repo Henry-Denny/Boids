@@ -22,6 +22,11 @@ void Vec::Restrict(sf::Vector2f &l_vec, float l_maxMag)
     if (magnitude > l_maxMag) { Vec::SetMagnitude(l_vec, l_maxMag); }
 }
 
+float Vec::Distance(sf::Vector2f A, sf::Vector2f B)
+{
+    return GetMagnitude(B - A);
+}
+
 float Vec::InvSqrt(float n)
 {
     const float threehalfs = 1.5F;
