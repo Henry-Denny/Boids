@@ -1,6 +1,6 @@
 #include "BoidManager.hpp"
 
-BoidManager::BoidManager() : m_anticlockwiseOrbit{true}
+BoidManager::BoidManager() : m_anticlockwiseOrbit{true}, m_centralisationNode{(float)constants::k_windowSize[0], (float)constants::k_windowSize[1]}
 {
 
 }
@@ -38,7 +38,7 @@ void BoidManager::Step(double dt, std::uint8_t behaviourOptions)
 {
     for (auto &boid : m_flock)
     {
-        boid->Flock(m_flock, behaviourOptions, m_anticlockwiseOrbit);
+        boid->Flock(m_flock, m_centralisationNode, behaviourOptions, m_anticlockwiseOrbit);
     }
     for (auto &boid : m_flock)
     {
@@ -49,6 +49,11 @@ void BoidManager::Step(double dt, std::uint8_t behaviourOptions)
 void BoidManager:: ToggleOrbitalDirection()
 {
     m_anticlockwiseOrbit = !m_anticlockwiseOrbit;
+}
+
+void BoidManager::SetCentralisationNode(sf::Vector2f l_pos)
+{
+    m_centralisationNode = l_pos;
 }
 
 const std::vector<Boid*>& BoidManager::GetFlock()

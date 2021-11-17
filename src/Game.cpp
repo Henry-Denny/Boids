@@ -82,6 +82,10 @@ void Game::HandleInput()
 
             } 
         }
+        if (ev.type == sf::Event::MouseButtonPressed)
+        {
+            m_boidManager.SetCentralisationNode(sf::Vector2f(sf::Mouse::getPosition(*m_renderer.GetWindow())));
+        }
     }
 }
 

@@ -21,7 +21,7 @@ public:
 
 
     // Change the acceleration
-    void Flock(const std::vector<Boid*> l_flock, std::uint8_t behaviourOptions = 0b11111111, bool l_anticlockwiseOrbit = true);
+    void Flock(const std::vector<Boid*> l_flock, sf::Vector2f l_centralisationNode, std::uint8_t behaviourOptions = 0b11111111, bool l_anticlockwiseOrbit = true);
     // Apply the acceleration
     void Update(float l_dt);
 

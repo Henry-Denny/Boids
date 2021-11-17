@@ -17,6 +17,7 @@ public:
     void CreateBoid(sf::Vector2f l_pos);
     void CreateBoid(unsigned int l_winWidth, unsigned int l_winHeight);
     void Step(double dt, std::uint8_t behaviourOptions = 0b11111111);
+    void SetCentralisationNode(sf::Vector2f l_pos);
 
     void ToggleOrbitalDirection();
 
@@ -25,6 +26,7 @@ public:
 private:
     std::vector<Boid*> m_flock;
     bool m_anticlockwiseOrbit;
+    sf::Vector2f m_centralisationNode;
 };
 
 #endif

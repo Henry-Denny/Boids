@@ -25,7 +25,7 @@ Boid::~Boid()
 
 }
 
-void Boid::Flock(const std::vector<Boid*> l_flock, std::uint8_t behaviourOptions, bool l_anticlockwiseOrbit)
+void Boid::Flock(const std::vector<Boid*> l_flock, sf::Vector2f l_centralisationNode, std::uint8_t behaviourOptions, bool l_anticlockwiseOrbit)
 {
     sf::Vector2f force {0, 0};
     if (behaviourOptions & (std::uint8_t)Behaviour::Alignment)
@@ -46,7 +46,7 @@ void Boid::Flock(const std::vector<Boid*> l_flock, std::uint8_t behaviourOptions
     }
     if (behaviourOptions & (std::uint8_t)Behaviour::Orbit)
     {
-        force += CalculateOrbitalForce({600, 600}, l_anticlockwiseOrbit);
+        force += CalculateOrbitalForce(l_centralisationNode, l_anticlockwiseOrbit);
     }
     if (behaviourOptions & (std::uint8_t)Behaviour::Resistance)
     {
