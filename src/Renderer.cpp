@@ -81,9 +81,9 @@ void Renderer::DrawBoids()
         sf::Vector2f origin = l_boid->GetPos();
         boidShape.setPosition(origin);
         boidShape.setOrigin(origin);
-        boidShape.setPoint(0, origin + sf::Vector2f(0, -12));
-        boidShape.setPoint(1, origin + sf::Vector2f(-6, 6));
-        boidShape.setPoint(2, origin + sf::Vector2f(6, 6));
+        boidShape.setPoint(0, origin + sf::Vector2f(0, -16));
+        boidShape.setPoint(1, origin + sf::Vector2f(-8, 8));
+        boidShape.setPoint(2, origin + sf::Vector2f(8, 8));
         // boidShape.setFillColor(l_boid->GetCol());
         float speed = l_boid->GetSpeed();
         int r = (speed / constants::k_maxSpeed) * 255;
