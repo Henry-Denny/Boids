@@ -33,6 +33,7 @@ public:
     sf::Vector2f CalculateResistanceForce();
 
     void ApplyForce(sf::Vector2f l_force);
+    void Move(sf::Vector2f l_disp);
 
     sf::Vector2f GetPos();
     float GetSpeed();

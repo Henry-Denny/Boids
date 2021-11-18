@@ -60,7 +60,7 @@ void Boid::Update(float l_dt)
     m_velocity += l_dt * m_acceleration;
     Vec::Restrict(m_velocity, constants::k_maxSpeed);
     m_acceleration = sf::Vector2f(0, 0);
-    m_pos += l_dt * m_velocity;
+    Move(l_dt * m_velocity);
 }
 
 sf::Vector2f Boid::CalculateSeekForce(sf::Vector2f l_target, double l_strengthCoeff)
@@ -160,6 +160,16 @@ sf::Vector2f Boid::CalculateResistanceForce()
 void Boid::ApplyForce(sf::Vector2f l_force)
 {
     m_acceleration += l_force / m_mass;
+}
+
+void Boid::Move(sf::Vector2f l_disp)
+{
+    m_pos += l_disp;
+    if (m_pos.x < 0) { m_pos.x += constants::k_windowSize[0]; }
+    else if (m_pos.x > constants::k_windowSize[0]) { m_pos.x -= constants::k_windowSize[0]; }
+
+    if (m_pos.y < 0) { m_pos.y += constants::k_windowSize[1]; }
+    else if (m_pos.y > constants::k_windowSize[1]) { m_pos.y -= constants::k_windowSize[1]; }
 }
 
 sf::Vector2f Boid::GetPos()
